@@ -1,0 +1,186 @@
+<div class="content">
+  <section id="benchmark-calculator">
+    <!--Headers-->
+    <div id="benchmark-headers" class="contentHeaders">
+      <img class="animated fadeInLeft faster" src="assets/images/rep-review_dumbbell-logo_3plates_off-black.png" />
+      <div class="animated fadeInDown faster">
+        <h2 class="contentTitle">Benchmark Calculator</h2>
+        <h3>
+          Compare your lift to performance standards.
+        </h3>
+      </div>
+      <img class="animated fadeInRight faster" src="assets/images/rep-review_dumbbell-logo_3plates_off-black.png" />
+    </div>
+    <!--Form-->
+    <div id="form-section" class="animated fadeIn faster">
+      <form id="benchmarkForm" [formGroup]="benchmarkForm" (ngSubmit)="onSubmit()">
+        <fa-icon
+          class="helpIcon bigIcon"
+          [icon]="['fas', 'question-circle']"
+          routerLink="/faq"
+          [queryParams]="{ cat: 'benchmark' }"
+        ></fa-icon>
+        <h5 class="formInstructions">
+          Choose a lift and enter your one-rep max, bodyweight, and gender.
+        </h5>
+
+        <div class="formElements">
+          <div class="formColumns">
+            <div class="labelColumn">
+              <div class="formRow"><label for="lift-select">Lift:</label></div>
+              <div class="formRow"><label for="oneRepMax"> One-Rep Max:</label></div>
+              <div class="formRow"><label for="bodyweight"> Bodyweight:</label></div>
+              <div class="formRow"><label for="gender">Gender:</label></div>
+            </div>
+            <div class="inputColumn">
+              <div class="formRow">
+                <select id="lift-select" formControlName="lift">
+                  <option value="squat">Squat</option>
+                  <option value="deadlift">Deadlift</option>
+                  <option value="bench">Bench Press</option>
+                  <option value="press">Overhead Press</option>
+                  <option value="clean">Power Clean</option>
+                </select>
+              </div>
+              <div class="formRow">
+                <input
+                  id="oneRepMax"
+                  type="number"
+                  formControlName="oneRepMax"
+                  [min]="minWeight"
+                  [max]="maxWeight"
+                  step="1"
+                  required
+                />
+                <div class="radioRow">
+                  <div>
+                    <input type="radio" id="lb" formControlName="unit" value="lb" />
+                    <label for="lb" class="radioLabel">lb</label>
+                  </div>
+                  <div>
+                    <input type="radio" id="kg" formControlName="unit" value="kg" />
+                    <label for="kg" class="radioLabel">kg</label>
+                  </div>
+                </div>
+              </div>
+              <div class="formRow">
+                <input
+                  id="bodyweight"
+                  type="number"
+                  formControlName="bodyweight"
+                  [min]="minBodyweight"
+                  [max]="maxBodyweight"
+                  step="1"
+                  required
+                />
+              </div>
+              <div class="formRow">
+                <div class="radioRow noMargin">
+                  <div>
+                    <input type="radio" id="male" formControlName="gender" value="male" />
+                    <label for="male" class="radioLabel">Male</label>
+                  </div>
+                  <div>
+                    <input type="radio" id="female" formControlName="gender" value="female" />
+                    <label for="female" class="radioLabel">Female</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <button id="benchmarkForm-submit" class="submitButton" type="submit" [disabled]="!benchmarkForm.valid">
+              Calculate
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!--Results-->
+  <section *ngIf="showResult" id="benchmark-results" [ngClass]="{ subdued: newInput }">
+    <div id="benchmark-result" class="animated fadeInUp faster">
+      <!--1RM-->
+      <div id="one-rep-result">
+        <div id="one-rep-result-title" class="bgOffBlack fgSilver"><h3>Your 1RM</h3></div>
+
+        <h2 id="one-rep-result-value" class="fgOffBlack">
+          {{ benchmarkForm.value.oneRepMax }} {{ benchmarkForm.value.unit }}
+        </h2>
+      </div>
+
+      <!--Benchmarks-->
+      <div id="benchmark-results">
+        <div id="benchmark-result-title" class="bgOffBlack fgSilver">
+          <h3 id="benchmarks-header">Benchmarks</h3>
+        </div>
+
+        <div id="benchmark-result-grid">
+          <div id="benchmark-key" class="benchmarkGroup bgOffBlack fgOffWhite">
+            <div class="benchmarkCell"><h3>Untrained</h3></div>
+            <div class="benchmarkCell">
+              <h3>Novice</h3>
+            </div>
+            <div class="benchmarkCell"><h3>Intermediate</h3></div>
+            <div class="benchmarkCell"><h3>Advanced</h3></div>
+            <div class="benchmarkCell"><h3>Elite</h3></div>
+          </div>
+          <div id="benchmark-values" class="benchmarkGroup">
+            <div class="benchmarkCell">
+              <h2 id="untrained-benchmark">{{ benchmarks.untrained }} {{ benchmarkForm.value.unit }}</h2>
+            </div>
+            <div class="benchmarkCell">
+              <h2 id="novice-benchmark">{{ benchmarks.novice }} {{ benchmarkForm.value.unit }}</h2>
+            </div>
+            <div class="benchmarkCell">
+              <h2 id="intermediate-benchmark">{{ benchmarks.intermediate }} {{ benchmarkForm.value.unit }}</h2>
+            </div>
+            <div class="benchmarkCell">
+              <h2 id="advanced-benchmark">{{ benchmarks.advanced }} {{ benchmarkForm.value.unit }}</h2>
+            </div>
+            <div class="benchmarkCell">
+              <h2 id="elite-benchmark">{{ benchmarks.elite }} {{ benchmarkForm.value.unit }}</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--Category Descriptions-->
+  <section *ngIf="showResult" id="category-desc" class="animated fadeInUp faster">
+    <div id="category-grid">
+      <div id="category-desc-title" class="bgSilver">
+        <h3 class="fgOffBlack">Performance Categories</h3>
+      </div>
+
+      <div id="category-desc-content">
+        <div id="category-desc-subtitle">
+          <h5 class="fgOffBlack">
+            The categories reflect the reasonably expected level of strength in a healthy individual who has met the
+            training requirements.
+          </h5>
+        </div>
+
+        <div id="categories-box">
+          <div id="categories">
+            <p *ngFor="let category of categories" class="fgOffBlack">
+              <span class="catName">{{ category.category }}: </span>{{ category.desc }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!--Starting Strength Attribution-->
+      <div id="ss-attribution">
+        <h6 class="fgOffBlack">
+          Benchmark data by Mark Rippetoe and Dr. Lon Kilgore, courtesy of
+          <a href="https://startingstrength.com/files/standards.pdf" target="_blank" class="fgGrey"
+            >Starting Strength.</a
+          >
+        </h6>
+      </div>
+    </div>
+  </section>
+</div>

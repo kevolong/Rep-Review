@@ -1,0 +1,157 @@
+@import "../../../variables.scss";
+
+$cell-width-desktop: 125px;
+$cell-width-tablet: 100px;
+$cell-width-tablet-small: 75px;
+$cell-width-mobile: 60px;
+$cell-width-mobile-small: 50px;
+
+#chart-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+//Grid box for each lift
+.chart {
+  display: grid;
+  grid-template-rows: 3.25em auto;
+  border-radius: 10px;
+  border: 3px solid $color-off-black;
+  margin-bottom: 25px;
+  width: $cell-width-desktop * 6;
+
+  @media screen and (max-width: 800px) {
+    width: $cell-width-tablet * 6;
+  }
+
+  @media screen and (max-width: 650px) {
+    width: $cell-width-tablet-small * 6;
+  }
+
+  @media screen and (max-width: 479px) {
+    width: $cell-width-mobile * 6;
+  }
+
+  @media screen and (max-width: 360px) {
+    width: $cell-width-mobile-small * 6;
+  }
+
+  //Title div
+  .chartTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    h3 {
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .chartHeader {
+      font-size: 1.4em;
+    }
+
+    .chartSubHeader {
+      font-size: 1.15em;
+    }
+  }
+
+  //Grid for chart content
+  .chartGrid {
+    display: flex;
+    flex-direction: column;
+
+    //Key row full names (hide on mobile)
+    .chartKeyNormal {
+      @media screen and (max-width: 479px) {
+        display: none;
+      }
+      h3 {
+        font-size: 0.9em;
+        @media screen and (max-width: 650px) {
+          font-size: 0.6em;
+        }
+      }
+    }
+
+    //Key row abbreviated names (show on mobile)
+    .chartKeySmall {
+      display: none;
+      @media screen and (max-width: 479px) {
+        display: block;
+      }
+      h3 {
+        font-size: 0.9em;
+        @media screen and (max-width: 650px) {
+          font-size: 0.6em;
+        }
+      }
+    }
+
+    //Values rows
+    .chartValue {
+      h4 {
+        @media screen and (max-width: 479px) {
+          font-size: 0.85em;
+        }
+      }
+    }
+
+    //Row grid for each bodyweight/benchmark set
+    .chartRow {
+      display: grid;
+      grid-template-columns: repeat(6, $cell-width-desktop);
+
+      @media screen and (max-width: 800px) {
+        grid-template-columns: repeat(6, $cell-width-tablet);
+      }
+
+      @media screen and (max-width: 650px) {
+        grid-template-columns: repeat(6, $cell-width-tablet-small);
+      }
+
+      @media screen and (max-width: 479px) {
+        grid-template-columns: repeat(6, $cell-width-mobile);
+      }
+
+      @media screen and (max-width: 360px) {
+        grid-template-columns: repeat(6, $cell-width-mobile-small);
+      }
+
+      //cells
+      .chartCell {
+        width: 125px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-left: 1px solid $color-off-black;
+        border-top: 1px solid $color-off-black;
+        margin: 0;
+
+        @media screen and (max-width: 800px) {
+          width: $cell-width-tablet;
+        }
+
+        @media screen and (max-width: 650px) {
+          width: $cell-width-tablet-small;
+        }
+
+        @media screen and (max-width: 479px) {
+          width: $cell-width-mobile;
+        }
+
+        @media screen and (max-width: 360px) {
+          width: $cell-width-mobile-small;
+        }
+      }
+
+      .chartValue {
+        font-weight: 400;
+      }
+    }
+  }
+}

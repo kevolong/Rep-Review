@@ -1,0 +1,158 @@
+<div class="content">
+  <section id="1rm-calculator">
+    <!--Headers-->
+    <div id="one-rm-headers" class="contentHeaders">
+      <img class="animated fadeInLeft faster" src="assets/images/rep-review_dumbbell-logo_3plates_off-black.png" />
+      <div class="animated fadeInDown faster">
+        <h2 class="contentTitle">One-Rep Max Calculator</h2>
+        <h3>
+          Estimate your 1RM and rep ranges.
+        </h3>
+      </div>
+
+      <img class="animated fadeInRight faster" src="assets/images/rep-review_dumbbell-logo_3plates_off-black.png" />
+    </div>
+
+    <!--Form-->
+    <div id="form-section" class="animated fadeIn faster">
+      <form id="bestForm" [formGroup]="bestForm" (ngSubmit)="onSubmit()">
+        <fa-icon class="helpIcon bigIcon" [icon]="['fas', 'question-circle']" routerLink="/faq"></fa-icon>
+        <h5 class="formInstructions">
+          Enter your best weight lifted for multiple reps.<br />Reps of 10 or fewer are best for accuracy.<br />Choose a
+          formula; default is average of all.
+        </h5>
+
+        <div class="formElements">
+          <div class="formColumns">
+            <div class="labelColumn">
+              <div class="formRow">
+                <label for="weightLifted">
+                  Weight:
+                </label>
+              </div>
+              <div class="formRow">
+                <label for="repsLifted">
+                  Reps:
+                </label>
+              </div>
+              <div class="formRow">
+                <label for="formula-select">Formula:</label>
+              </div>
+            </div>
+            <div class="inputColumn">
+              <div class="formRow">
+                <input
+                  id="weightLifted"
+                  type="number"
+                  formControlName="weightLifted"
+                  [min]="minWeight"
+                  [max]="maxWeight"
+                  step="1"
+                  required
+                />
+                <div class="radioRow">
+                  <div>
+                    <input type="radio" id="lb" formControlName="unitLifted" value="lb" />
+                    <label for="lb" class="radioLabel">lb</label>
+                  </div>
+                  <div>
+                    <input type="radio" id="kg" formControlName="unitLifted" value="kg" />
+                    <label for="kg" class="radioLabel">kg</label>
+                  </div>
+                </div>
+              </div>
+              <div class="formRow">
+                <input
+                  id="repsLifted"
+                  type="number"
+                  formControlName="repsLifted"
+                  [min]="minRep"
+                  [max]="maxRep"
+                  step="1"
+                  required
+                />
+              </div>
+              <div class="formRow">
+                <select id="formula-select" formControlName="formula">
+                  <option value="average">Average All</option>
+                  <option value="brzycki">Brzycki</option>
+                  <option value="epley">Epley</option>
+                  <option value="baechle">Baechle</option>
+                  <option value="lander">Lander</option>
+                  <option value="oconner">O'Conner</option>
+                  <option value="lombardi">Lombardi</option>
+                  <option value="mayhew">Mayhew</option>
+                  <option value="wathen">Wathen</option>
+                </select>
+
+                <fa-icon
+                  id="formula-help"
+                  class="helpIcon"
+                  [icon]="['fas', 'question-circle']"
+                  routerLink="/faq"
+                  [queryParams]="{ cat: 'formula' }"
+                ></fa-icon>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <button id="bestForm-submit" class="submitButton" type="submit" [disabled]="!bestForm.valid">
+              Calculate
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!--Results-->
+  <section *ngIf="showResult" id="one-rep-max-results" [ngClass]="{ subdued: newInput }">
+    <!--1RM-->
+    <div class="animated fadeInUp faster" id="one-rep-result">
+      <div id="one-rep-result-title" class="bgOffBlack fgSilver">
+        <h3>Estimated 1RM</h3>
+      </div>
+      <div id="one-rep-result-value">
+        <h2 class="fgOffBlack">{{ oneRepMax }} {{ bestForm.value.unitLifted }}</h2>
+      </div>
+
+      <div id="one-rep-result-button">
+        <button class="fgOffBlack bgDarkSilver" (click)="goCompare()" [disabled]="newInput">
+          Compare
+        </button>
+      </div>
+    </div>
+
+    <!--Rep Ranges-->
+    <div class="animated fadeInUp faster" id="rep-range-result">
+      <div id="rep-range-result-title" class="bgOffBlack fgSilver">
+        <h3>Estimated Rep Ranges</h3>
+      </div>
+
+      <div id="rep-range-result-grid">
+        <div id="range-result-key" class="repRangeGroup bgOffBlack fgOffWhite">
+          <div class="repRangeCell"><h3>Reps</h3></div>
+          <div class="repRangeCell">
+            <h3>Weight</h3>
+          </div>
+          <div class="repRangeCell"><h3>% of 1RM</h3></div>
+        </div>
+        <div id="range-result-values" class="repRangeGroup" *ngFor="let rep of repRanges">
+          <div class="repRangeCell">
+            <h4>{{ rep.rep }}</h4>
+          </div>
+          <div class="repRangeCell">
+            <h4>
+              {{ rep.weightLow }} - {{ rep.weightHigh }}
+              <span class="fontLight">({{ bestForm.value.unitLifted }})</span>
+            </h4>
+          </div>
+          <div class="repRangeCell">
+            <h4>{{ rep.percentLow }} - {{ rep.percentHigh }} <span class="fontLight">(%)</span></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

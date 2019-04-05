@@ -1,0 +1,127 @@
+<div class="content">
+  <!--Menu-->
+  <section id="charts-menu">
+    <!--Headers-->
+    <div id="chart-headers" class="contentHeaders">
+      <img class="animated fadeInLeft faster" src="assets/images/rep-review_dumbbell-logo_3plates_off-black.png" />
+      <div>
+        <h2 class="contentTitle animated fadeInDown faster">Benchmark Charts</h2>
+        <h3>
+          Full performance standards charts.
+        </h3>
+      </div>
+
+      <img class="animated fadeInRight faster" src="assets/images/rep-review_dumbbell-logo_3plates_off-black.png" />
+    </div>
+    <!--Form-->
+    <div id="form-section" class="animated fadeIn faster">
+      <form id="chartsForm" [formGroup]="chartsForm">
+        <fa-icon
+          class="helpIcon bigIcon"
+          [icon]="['fas', 'question-circle']"
+          routerLink="/faq"
+          [queryParams]="{ cat: 'benchmark' }"
+        ></fa-icon>
+        <h5 class="formInstructions">
+          Choose a lift and gender to see the full charts.
+        </h5>
+
+        <div class="formElements">
+          <div class="formColumns">
+            <div class="labelColumn">
+              <div class="formRow"><label for="gender">Gender:</label></div>
+              <div class="formRow"><label for="unit">Unit:</label></div>
+              <div class="formRow"><label for="lift-select">Lift:</label></div>
+            </div>
+            <div class="inputColumn">
+              <div class="formRow">
+                <div class="radioRow noMargin">
+                  <div>
+                    <input type="radio" id="male" formControlName="gender" value="male" />
+                    <label for="male" class="radioLabel">Male</label>
+                  </div>
+                  <div>
+                    <input type="radio" id="female" formControlName="gender" value="female" />
+                    <label for="female" class="radioLabel">Female</label>
+                  </div>
+                </div>
+              </div>
+              <div class="formRow">
+                <div class="radioRow noMargin">
+                  <div>
+                    <input type="radio" id="lb" formControlName="unit" value="lb" />
+                    <label for="lb" class="radioLabel">lb</label>
+                  </div>
+                  <div>
+                    <input type="radio" type="radio" id="kg" formControlName="unit" value="kg" />
+                    <label for="kg" class="radioLabel">kg</label>
+                  </div>
+                </div>
+              </div>
+              <div class="formRow">
+                <select id="lift-select" formControlName="lift">
+                  <option value="all">All</option>
+                  <option value="squat">Squat</option>
+                  <option value="deadlift">Deadlift</option>
+                  <option value="bench">Bench Press</option>
+                  <option value="press">Overhead Press</option>
+                  <option value="clean">Power Clean</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!--Charts-->
+  <section id="chart-display" class="animated fadeInUp faster">
+    <div class="chart" *ngFor="let chart of charts">
+      <div class="chartTitle bgOffBlack fgSilver">
+        <h3 class="chartHeader">{{ chart.lift }}</h3>
+        <h3 class="chartSubHeader">
+          <span class="capitalize">{{ chartsForm.value.gender }}</span> ({{ chartsForm.value.unit }})
+        </h3>
+      </div>
+      <div class="chartGrid">
+        <div class="chartKeyNormal">
+          <div class="chartRow bgOffBlack fgOffWhite">
+            <h3 class="chartCell">Bodyweight</h3>
+            <h3 class="chartCell">Untrained</h3>
+            <h3 class="chartCell">Novice</h3>
+            <h3 class="chartCell">Intermediate</h3>
+            <h3 class="chartCell">Advanced</h3>
+            <h3 class="chartCell">Elite</h3>
+          </div>
+        </div>
+
+        <div class="chartKeySmall">
+          <div class="chartRow bgOffBlack fgOffWhite">
+            <h3 class="chartCell">BW</h3>
+            <h3 class="chartCell">Untrained</h3>
+            <h3 class="chartCell">Novice</h3>
+            <h3 class="chartCell">Int</h3>
+            <h3 class="chartCell">Adv</h3>
+            <h3 class="chartCell">Elite</h3>
+          </div>
+        </div>
+
+        <div *ngFor="let row of chart.chart" class="chartRow chartValue">
+          <h4 class="chartCell chartValue bgOffBlack fgOffWhite">{{ row.bodyweight }}</h4>
+          <h4 class="chartCell chartValue">{{ row.untrained }}</h4>
+          <h4 class="chartCell chartValue">{{ row.novice }}</h4>
+          <h4 class="chartCell chartValue">{{ row.intermediate }}</h4>
+          <h4 class="chartCell chartValue">{{ row.advanced }}</h4>
+          <h4 class="chartCell chartValue">{{ row.elite }}</h4>
+        </div>
+      </div>
+    </div>
+    <div id="ss-attribution">
+      <h6 class="fgOffBlack">
+        Benchmark data by Mark Rippetoe and Dr. Lon Kilgore, courtesy of
+        <a href="https://startingstrength.com/files/standards.pdf" target="_blank" class="fgGrey">Starting Strength.</a>
+      </h6>
+    </div>
+  </section>
+</div>

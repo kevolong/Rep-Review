@@ -1,0 +1,422 @@
+// GLOBAL STYLES
+
+@import "variables.scss";
+
+/** Fonts
+Mada:300,400,500,700
+Roboto:300,400
+*/
+
+$navbar-height: 75px;
+$footer-height: 50px;
+
+html {
+  font-family: "Mada", sans-serif;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+//Navbar
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  overflow: hidden;
+  width: 100%;
+  height: $navbar-height;
+
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  background-color: black;
+  color: white;
+
+  //Rep Review Brand
+  #brand {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 20px;
+
+    //Logo image
+    #logo {
+      height: 60px;
+    }
+
+    #brand-title {
+      margin-left: 15px;
+      height: 30px;
+
+      @media screen and (max-width: 575px) {
+        display: none;
+      }
+    }
+  }
+
+  //RouterLink navigation links
+  #nav-links {
+    display: flex;
+    justify-content: flex-end;
+
+    @media screen and (max-width: 575px) {
+      justify-content: space-evenly;
+    }
+
+    a {
+      margin: 0 25px 0 25px;
+      text-decoration: none;
+      color: $color-off-white;
+
+      @media screen and (max-width: 640px) {
+        margin: 0 15px 0 15px;
+      }
+
+      @media screen and (max-width: 360px) {
+        margin: 0 10px 0 10px;
+        font-size: 15px;
+      }
+    }
+
+    a.active {
+      color: $color-silver;
+    }
+  }
+}
+
+//Div to scroll only over main and footer
+#scroll-area {
+  position: absolute;
+  top: $navbar-height;
+  bottom: 0;
+  width: 100vw;
+  overflow-y: scroll;
+  z-index: 1;
+
+  display: grid;
+  grid-template-rows: 1fr $footer-height;
+  grid-template-areas:
+    "content"
+    "footer";
+}
+
+//Router outlet
+main {
+  grid-area: content;
+  display: flex;
+  justify-content: center;
+
+  //Content area for sub-components
+  .content {
+    max-width: 800px;
+    text-align: center;
+
+    @media screen and (max-width: 800px) {
+      max-width: 95vw;
+    }
+
+    //Headers (Title, description sub-title, and img)
+    .contentHeaders {
+      margin-top: 1em;
+      display: grid;
+      grid-template-columns: auto auto auto;
+      grid-gap: 15px;
+      justify-content: center;
+      align-items: center;
+
+      @media screen and (max-width: 479px) {
+        grid-template-columns: auto;
+        font-size: 16px;
+      }
+
+      @media screen and (max-width: 360px) {
+        font-size: 15px;
+      }
+
+      //Dumbbell img
+      img {
+        height: 60px;
+
+        @media screen and (max-width: 479px) {
+          display: none;
+        }
+      }
+
+      //Title
+      h2 {
+        margin: 0;
+      }
+
+      //Sub-title description
+      h3 {
+        margin: 0;
+        line-height: 1.2;
+      }
+
+      //Font Awesome help icon
+      .helpIcon {
+        font-size: 1em;
+      }
+    }
+
+    //Title
+    .contentTitle {
+      font-weight: 700;
+    }
+
+    //Subdued color for result display when user input change without submission
+    .subdued {
+      opacity: 0.4;
+    }
+
+    //Font Awesome help icon
+    .helpIcon {
+      font-size: 0.9em;
+      color: $color-silver-dark;
+      cursor: pointer;
+    }
+
+    //Calculator and chart forms
+    form {
+      font-family: "Roboto", sans-serif;
+      font-weight: 300;
+      margin: 25px 0 15px 0;
+
+      //H5 instructions
+      .formInstructions {
+        margin: 0 0 10px 0;
+      }
+
+      //Big Help icon at top of form
+      .bigIcon {
+        font-size: 25px;
+      }
+
+      //Inputs and submit button
+      .formElements {
+        margin-top: 10px;
+        display: grid;
+        grid-template-rows: auto auto;
+        row-gap: 10px;
+        justify-content: center;
+
+        //Columns for forms (labels on left, inputs on right)
+        .formColumns {
+          display: grid;
+          grid-template-columns: auto auto;
+          column-gap: 15px;
+
+          .labelColumn {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+          }
+
+          .inputColumn {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+          }
+
+          //Rows for labels/input groups
+          .formRow {
+            height: 1.5em;
+            display: flex;
+            align-items: center;
+          }
+        }
+
+        //Calculate buttons
+        .submitButton {
+          font-family: "Roboto", sans-serif;
+          font-weight: 300;
+          font-size: 0.95em;
+          text-transform: uppercase;
+
+          border-radius: 5px;
+          border: 2px solid $color-off-black;
+          padding: 5px 10px;
+
+          background-color: white;
+          color: $color-off-black;
+          cursor: pointer;
+        }
+
+        .submitButton:disabled {
+          color: $color-silver;
+          border: 2px solid $color-silver;
+          cursor: default;
+        }
+
+        input,
+        select {
+          font-family: "Roboto", sans-serif;
+          font-size: 0.75em;
+          font-weight: 300;
+          padding: 2px;
+          border-radius: 5px;
+          border: 1px solid $color-off-black;
+          background-color: $color-off-white;
+        }
+
+        input:focus,
+        select:focus {
+          outline: none;
+          box-shadow: 0px 0px 2px 3px rgba(183, 183, 183, 0.6);
+        }
+
+        //Row for radio inputs/labels
+        .radioRow {
+          margin-left: 15px;
+          display: grid;
+          grid-template-columns: auto auto;
+          grid-gap: 5px;
+
+          .radioLabel {
+            font-family: "Roboto", sans-serif;
+            font-size: 0.95em;
+            font-weight: 300;
+          }
+
+          input[type="radio"] {
+            position: absolute;
+            top: auto;
+            overflow: hidden;
+            clip: rect(1px 1px 1px 1px); /* IE 6/7 */
+            clip: rect(1px, 1px, 1px, 1px);
+            width: 1px;
+            height: 1px;
+            white-space: nowrap;
+          }
+
+          input[type="radio"] + label {
+            display: block;
+            padding: 0.5em;
+            padding-left: 1em;
+            text-indent: -0.25em;
+            max-width: calc(100% - 1em);
+          }
+
+          input[type="radio"] + label:before {
+            content: "";
+            background: $color-off-white;
+            border-radius: 50%;
+            border: 1px solid $color-off-black;
+            background-color: $color-off-white;
+            display: block;
+            box-sizing: border-box;
+            float: left;
+            width: 1em;
+            height: 1em;
+            margin-left: -1.5em;
+            margin-top: 0.15em;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.1s ease-out;
+          }
+
+          //Checked
+          input[type="radio"]:checked + label:before {
+            background-color: $color-grey;
+          }
+        }
+
+        //Custom margin to line up with other inputs correctly
+        .radioRow.noMargin {
+          margin-left: 7px;
+        }
+      }
+    }
+
+    //Starting Strength benchmark attribution
+    #ss-attribution {
+      h6 {
+        font-weight: 300;
+        font-size: 0.85em;
+        margin: 5px;
+      }
+
+      a {
+        text-decoration: none;
+        font-weight: 400;
+      }
+    }
+  }
+}
+
+//By Kevin footer
+footer {
+  grid-area: footer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-weight: 300;
+  text-align: center;
+
+  .by {
+    font-size: 0.85em;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+    font-size: 0.9em;
+    font-weight: 400;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 500;
+}
+
+//Color classes
+.fgSilver {
+  color: $color-silver;
+}
+
+.fgOffWhite {
+  color: $color-off-white;
+}
+
+.fgDarkSilver {
+  color: $color-silver-dark;
+}
+
+.fgGrey {
+  color: $color-grey;
+}
+
+.bgOffBlack {
+  background-color: $color-off-black;
+}
+
+.bgDarkSilver {
+  background-color: $color-silver-dark;
+}
+
+.bgSilver {
+  background-color: $color-silver;
+}
+
+//Font classes
+.fontLight {
+  font-weight: 300;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}

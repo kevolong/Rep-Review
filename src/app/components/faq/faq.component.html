@@ -1,0 +1,123 @@
+<div class="content animated fadeIn faster">
+  <!--Menu-->
+  <section id="faq-menu">
+    <!--Headers-->
+    <div id="faq-headers" class="contentHeaders">
+      <div></div>
+      <h2 class="contentTitle animated fadeInDown faster">Frequently Asked Questions</h2>
+      <div></div>
+    </div>
+
+    <!--Buttons-->
+    <div id="faq-buttons">
+      <button id="faq-select-1rm" [ngClass]="{ active: currentTopic === '1rm' }" (click)="changeTopic('1rm')">
+        1RM
+      </button>
+      <button
+        id="faq-select-benchmark"
+        [ngClass]="{ active: currentTopic === 'benchmark' }"
+        (click)="changeTopic('benchmark')"
+      >
+        Benchmarks
+      </button>
+      <button
+        id="faq-select-formulas"
+        [ngClass]="{ active: currentTopic === 'formula' }"
+        (click)="changeTopic('formula')"
+      >
+        Formulas
+      </button>
+    </div>
+  </section>
+
+  <!--1RM FAQ-->
+  <section class="animated fadeInUp faster" *ngIf="currentTopic === '1rm'" id="faq-1rm">
+    <div class="faqTitle">
+      <h2>1RM</h2>
+    </div>
+
+    <div class="faqList">
+      <div class="faqEntry" *ngFor="let entry of oneRepMaxFaq">
+        <div class="faqQuestion">
+          <img src="assets/images/rep-review_dumbbell-logo_3plates_black.png" />
+          <h4>{{ entry.question }}</h4>
+        </div>
+
+        <div class="faqAnswer">
+          <p class="answer">{{ entry.answer }}</p>
+          <ul *ngIf="entry.bullets">
+            <li *ngFor="let bullet of entry.bullets">{{ bullet }}</li>
+          </ul>
+          <div class="faqLink" *ngIf="entry.links">
+            <p *ngFor="let entry of entry.links">
+              {{ entry.text }}
+              <a class="fgGrey" [href]="entry.href" target="_blank">{{ entry.linkText }}</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--Benchmarks FAQ-->
+  <section class="animated fadeInUp faster" *ngIf="currentTopic === 'benchmark'" id="faq-benchmark">
+    <div class="faqTitle">
+      <h2>Benchmarks</h2>
+    </div>
+    <div class="faqList">
+      <div class="faqEntry" *ngFor="let entry of benchmarkFaq">
+        <div class="faqQuestion">
+          <img src="assets/images/rep-review_dumbbell-logo_3plates_black.png" />
+          <h4>{{ entry.question }}</h4>
+        </div>
+        <div class="faqAnswer">
+          <p class="answer">{{ entry.answer }}</p>
+          <ul *ngIf="entry.bullets">
+            <li *ngFor="let bullet of entry.bullets">{{ bullet }}</li>
+          </ul>
+          <div class="faqLink" *ngIf="entry.links">
+            <p *ngFor="let entry of entry.links">
+              {{ entry.text }}
+              <a class="fgGrey" [href]="entry.href" target="_blank">{{ entry.linkText }}</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--Formulas FAQ-->
+  <section class="animated fadeInUp faster" *ngIf="currentTopic === 'formula'" id="faq-formula">
+    <div class="faqTitle">
+      <h2>Formulas</h2>
+    </div>
+    <div class="faqList">
+      <div class="faqEntry" *ngFor="let entry of formulaFaq">
+        <div class="faqQuestion">
+          <img src="assets/images/rep-review_dumbbell-logo_3plates_black.png" />
+          <h4>{{ entry.question }}</h4>
+        </div>
+        <div class="faqAnswer">
+          <p class="answer">{{ entry.answer }}</p>
+          <ul *ngIf="entry.bullets">
+            <li *ngFor="let bullet of entry.bullets">{{ bullet }}</li>
+          </ul>
+          <div class="faqLink" *ngIf="entry.links">
+            <p *ngFor="let entry of entry.links">
+              {{ entry.text }}
+              <a class="fgGrey" [href]="entry.href" target="_blank">{{ entry.linkText }}</a>
+            </p>
+          </div>
+          <div *ngIf="entry.images">
+            <div class="faqImage" *ngFor="let image of entry.images">
+              <p>
+                {{ image.desc }}
+              </p>
+              <img [src]="image.src" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

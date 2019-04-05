@@ -1,0 +1,28 @@
+<div id="rep-app">
+  <!--Navbar-->
+  <nav>
+    <a id="brand" routerLink="/">
+      <img id="logo" src="assets/images/rep-review_barbell-logo_silver_gradient.png" />
+      <img id="brand-title" src="assets/images/rep-review_brand-title_silver_gradient.png" />
+    </a>
+
+    <div id="nav-links">
+      <a id="one-rep-link" routerLink="/1rm" [ngClass]="{ active: path === '/1rm' }">1RM</a>
+      <a id="benchmark-link" routerLink="/benchmark" [ngClass]="{ active: path === '/benchmark' }">Benchmarks</a>
+      <a id="charts-link" routerLink="/charts" [ngClass]="{ active: path === '/charts' }">Charts</a>
+      <a id="faq-link" routerLink="/faq" [ngClass]="{ active: path === '/faq' }">FAQ</a>
+    </div>
+  </nav>
+
+  <!--Scrollable Area-->
+  <div id="scroll-area">
+    <main><router-outlet></router-outlet></main>
+
+    <footer>
+      <p id="by-kevin">
+        <span class="by">by </span>
+        <a href="https://kevinandrewlong.com" target="_blank" rel="noopener noreferrer">kevin long </a>
+      </p>
+    </footer>
+  </div>
+</div>

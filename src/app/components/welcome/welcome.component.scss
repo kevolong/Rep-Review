@@ -1,0 +1,106 @@
+//Welcome header with title and logo
+#welcome-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+
+  //h2 "Welcome to Rep Review"
+  #welcome-title {
+    margin: 0 15px 0 15px;
+
+    @media screen and (max-width: 410px) {
+      font-size: 1.2em;
+    }
+  }
+  //img logo
+  .logo {
+    height: 50px;
+  }
+}
+
+//About Description
+#welcome-about {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+
+  p {
+    max-width: 600px;
+  }
+
+  @media screen and (max-width: 375px) {
+    font-size: 0.9em;
+  }
+}
+
+//Options header and links
+#welcome-options {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+  flex-direction: column;
+
+  //Welcome links grid
+  #welcome-links {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    grid-gap: 25px;
+
+    @media screen and (max-width: 768px) {
+      grid-template-columns: auto;
+      grid-template-rows: repeat(4, auto);
+    }
+
+    //Welcome link div
+    .welcome-link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      width: 350px;
+      height: 130px;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+
+      @media screen and (max-width: 479px) {
+        height: 105px;
+      }
+
+      @media screen and (max-width: 375px) {
+        width: 300px;
+      }
+
+      @media screen and (max-width: 325px) {
+        padding: 5px;
+      }
+
+      a {
+        text-decoration: none;
+        color: white;
+        h4 {
+          @media screen and (max-width: 479px) {
+            margin: 10px 0 15px 0;
+          }
+        }
+
+        p {
+          font-size: 0.9em;
+          @media screen and (max-width: 479px) {
+            margin: 5px 0 5px 0;
+          }
+        }
+      }
+    }
+  }
+
+  .welcome-link:hover {
+    box-shadow: 0 0 5px 5px grey;
+    background-color: black;
+  }
+}
